@@ -15,10 +15,19 @@ import java.text.NumberFormat;
 
 public class MainActivity extends AppCompatActivity {
 
+    DatabaseHelper db;
+    Button spremi;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DatabaseHelper(this);
+        spremi = findViewById(R.id.Spremi);
+        final TextView rezultat = (TextView) findViewById(R.id.textView7);
+
 
         Spinner spinner_tarife_ = (Spinner) findViewById(R.id.spinner_tarife);
 
@@ -53,6 +62,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        spremi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String number = rezultat.getText().toString();
+                String predmet= new String("Struja");
+                if (!number.equals("") && db.addData(number, predmet)){
+                    Toast.makeText(MainActivity.this, "Spremljeno", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this,"Nije spremljeno", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     public void racunaj_struju(View view) {
@@ -170,5 +193,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         rezultat.setText(x + " kn");
+
     }
 }

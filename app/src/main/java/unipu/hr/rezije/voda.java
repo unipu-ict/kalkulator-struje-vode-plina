@@ -3,16 +3,39 @@ package unipu.hr.rezije;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class voda extends AppCompatActivity {
 
+    DatabaseHelper db;
+    Button spremi;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voda);
+
+
+        db = new DatabaseHelper(this);
+        spremi = findViewById(R.id.Spremi);
+        final TextView rezultat = (TextView) findViewById(R.id.textView16);
+
+        spremi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String number = rezultat.getText().toString();
+                String predmet= new String("Voda");
+                if (!number.equals("") && db.addData(number, predmet)){
+                    Toast.makeText(voda.this, "Spremljeno", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(voda.this,"Nije spremljeno", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void racunaj_vodu(View view) {

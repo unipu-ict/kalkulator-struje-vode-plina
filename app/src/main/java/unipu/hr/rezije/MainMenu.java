@@ -54,6 +54,11 @@ public class MainMenu extends AppCompatActivity {
                         final Intent i=new Intent(MainMenu.this, OstaloKalkulator.class);
                         startActivity(i);
                     }
+                    if (finalI==4){
+                        Bundle bundle=new Bundle();
+                        final Intent i=new Intent(MainMenu.this, ListLayout.class);
+                        startActivity(i);
+                    }
                 }
             });
         }
